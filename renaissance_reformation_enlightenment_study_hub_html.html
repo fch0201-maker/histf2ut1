@@ -1,0 +1,1226 @@
+<!-- ... existing code ... -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topic 5: Modern Europe Study Hub (近代歐洲的興起雙語學習中心)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        amber: { 50: '#fffbeb', 100: '#fef3c7', 500: '#f59e0b', 700: '#b45309', 800: '#92400e', 900: '#78350f' },
+                        renaissance: { dark: '#1c1917', warm: '#78350f', gold: '#d97706', accent: '#3b82f6', bg: '#fcfbf7' }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f6f0; color: #1c1917; }
+        .glass-panel { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(8px); border: 1px solid rgba(229, 231, 235, 0.8); }
+        .tab-btn.active { border-bottom: 3px solid #d97706; color: #b45309; font-weight: 700; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .flip-card { perspective: 1000px; }
+        .flip-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { backface-visibility: hidden; }
+        .flip-card-back { transform: rotateY(180deg); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-50 bg-stone-900 text-stone-100 shadow-md border-b border-amber-700/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <span class="p-2 bg-amber-600 rounded-lg text-white font-black text-xl shadow-inner">T5</span>
+                    <div>
+                        <h1 class="text-lg font-bold tracking-tight text-amber-400 leading-none">The Rise of Modern Europe (近代歐洲的興起)</h1>
+                        <p class="text-xs text-stone-400">Ch.1 Renaissance & Reformation | Ch.2 Scientific Rev. & Enlightenment</p>
+                    </div>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-1 text-sm font-medium">
+                    <button onclick="switchTab('notes')" class="nav-tab px-3 py-2 rounded-md hover:bg-stone-800 text-amber-400 transition" id="nav-notes"><i class="fa-solid fa-book-open mr-1"></i> 筆記 Content</button>
+                    <button onclick="switchTab('timeline')" class="nav-tab px-3 py-2 rounded-md hover:bg-stone-800 text-stone-300 transition" id="nav-timeline"><i class="fa-solid fa-clock-rotate-left mr-1"></i> 年表 Timeline</button>
+                    <button onclick="switchTab('compare')" class="nav-tab px-3 py-2 rounded-md hover:bg-stone-800 text-stone-300 transition" id="nav-compare"><i class="fa-solid fa-code-compare mr-1"></i> 對比 Compare</button>
+                    <button onclick="switchTab('cards')" class="nav-tab px-3 py-2 rounded-md hover:bg-stone-800 text-stone-300 transition" id="nav-cards"><i class="fa-solid fa-clone mr-1"></i> 詞彙卡 Flashcards</button>
+                    <button onclick="switchTab('quiz')" class="nav-tab px-3 py-2 rounded-md hover:bg-stone-800 text-stone-300 transition" id="nav-quiz"><i class="fa-solid fa-pen-to-square mr-1"></i> 測驗 Quiz</button>
+                    <button onclick="switchTab('ai-tutor')" class="nav-tab px-3 py-2 rounded-md bg-amber-600/30 text-amber-300 border border-amber-500/50 hover:bg-amber-600/50 transition" id="nav-ai-tutor"><i class="fa-solid fa-robot mr-1"></i> AI 助手 AI Tutor</button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-md text-stone-400 hover:text-white hover:bg-stone-800 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-stone-900 border-b border-stone-800 px-4 pt-2 pb-4 space-y-1">
+            <button onclick="switchTab('notes'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-amber-400 font-medium hover:bg-stone-800">筆記 Content</button>
+            <button onclick="switchTab('timeline'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-stone-300 font-medium hover:bg-stone-800">年表 Timeline</button>
+            <button onclick="switchTab('compare'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-stone-300 font-medium hover:bg-stone-800">對比 Compare</button>
+            <button onclick="switchTab('cards'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-stone-300 font-medium hover:bg-stone-800">詞彙卡 Flashcards</button>
+            <button onclick="switchTab('quiz'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-stone-300 font-medium hover:bg-stone-800">測驗 Quiz</button>
+            <button onclick="switchTab('ai-tutor'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-amber-300 bg-amber-900/40 font-medium">AI 助手 AI Tutor</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ================= SECTION 1: DETAILED NOTES ================= -->
+        <section id="section-notes" class="space-y-6">
+            <!-- Header Banner -->
+            <div class="bg-gradient-to-r from-stone-900 via-stone-800 to-amber-950 text-white rounded-2xl p-6 shadow-xl border border-amber-600/30">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded-full text-xs font-semibold mb-2">教科書第 6-39 頁 (Textbook pp.6-39)</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-amber-200">The Rise of Modern Europe (近代歐洲的興起)</h2>
+                        <p class="text-stone-300 text-sm mt-1">涵蓋 Chapter 1 (文藝復興與宗教改革) 及 Chapter 2 (科學革命與啟蒙運動) 核心考核重點中英雙語完全對照。<br><span class="text-xs text-amber-400">Complete Bilingual Coverage based on Class Notes (Textbook pp.6-39).</span></p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="toggleAllAccordions(true)" class="px-3 py-1.5 bg-stone-700 hover:bg-stone-600 text-xs font-medium rounded-lg transition"><i class="fa-solid fa-expand mr-1"></i> 展開全部 Expand All</button>
+                        <button onclick="toggleAllAccordions(false)" class="px-3 py-1.5 bg-stone-700 hover:bg-stone-600 text-xs font-medium rounded-lg transition"><i class="fa-solid fa-compress mr-1"></i> 折疊全部 Collapse All</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub Navigation Tabs inside Notes -->
+            <div class="flex overflow-x-auto space-x-2 border-b border-stone-300 pb-2 hide-scrollbar">
+                <button onclick="filterNotes('all')" class="note-filter-btn px-4 py-2 rounded-xl bg-amber-600 text-white text-sm font-semibold shadow-sm transition" id="filter-all">全部內容 All</button>
+                <button onclick="filterNotes('renaissance')" class="note-filter-btn px-4 py-2 rounded-xl bg-white text-stone-700 hover:bg-amber-50 text-sm font-medium border border-stone-200 transition" id="filter-renaissance">1. 文藝復興 Renaissance</button>
+                <button onclick="filterNotes('reformation')" class="note-filter-btn px-4 py-2 rounded-xl bg-white text-stone-700 hover:bg-amber-50 text-sm font-medium border border-stone-200 transition" id="filter-reformation">2. 宗教改革 Reformation</button>
+                <button onclick="filterNotes('scientific')" class="note-filter-btn px-4 py-2 rounded-xl bg-white text-stone-700 hover:bg-amber-50 text-sm font-medium border border-stone-200 transition" id="filter-scientific">3. 科學革命 Scientific Rev.</button>
+                <button onclick="filterNotes('enlightenment')" class="note-filter-btn px-4 py-2 rounded-xl bg-white text-stone-700 hover:bg-amber-50 text-sm font-medium border border-stone-200 transition" id="filter-enlightenment">4. 啟蒙運動 Enlightenment</button>
+            </div>
+
+            <!-- Notes List Accordions -->
+            <div class="space-y-4">
+
+                <!-- Accordion 1: Renaissance Basic & Features -->
+                <!-- ... existing code ... -->
+                <div class="note-block renaissance glass-panel rounded-xl shadow-sm border border-stone-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-ren-1')" class="w-full px-6 py-4 flex items-center justify-between bg-stone-50/80 hover:bg-amber-50/50 transition text-left">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-8 h-8 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-sm">1.1</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-stone-800">文藝復興的定義與三大特徵</h3>
+                                <p class="text-xs text-amber-800 font-medium">Definition & Three Main Features of the Renaissance</p>
+                            </div>
+                        </div>
+                        <i id="icon-acc-ren-1" class="fa-solid fa-chevron-down text-stone-400 transition-transform"></i>
+                    </button>
+                    <div id="acc-ren-1" class="px-6 py-4 space-y-4 border-t border-stone-200 text-stone-700">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-3 bg-amber-50/60 p-4 rounded-xl border border-amber-200/60 text-sm">
+                            <div><strong class="text-amber-900 block">性質 Nature:</strong> 文化及學術運動<br><span class="text-xs text-stone-600">A cultural and intellectual movement</span></div>
+                            <div><strong class="text-amber-900 block">發源地 Birthplace:</strong> 意大利 <i class="fa-solid fa-arrow-right text-xs"></i> 全歐洲<br><span class="text-xs text-stone-600">Italy <i class="fa-solid fa-arrow-right text-xs"></i> All of Europe</span></div>
+                            <div><strong class="text-amber-900 block">字面意思 Meaning:</strong> 「復興」或「重生」<br><span class="text-xs text-stone-600">Revival or Rebirth</span></div>
+                            <div><strong class="text-amber-900 block">時期 Period:</strong> 14至17世紀 (中古過渡至近代)<br><span class="text-xs text-stone-600">14th-17th Century (Transition from Medieval to Modern)</span></div>
+                        </div>
+
+                        <h4 class="font-bold text-stone-900 text-md mt-4 border-l-4 border-amber-600 pl-2">三大主要特徵 Three Main Features:</h4>
+                        <ul class="space-y-3 pl-2">
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-amber-600 mt-1"></i>
+                                <div>
+                                    <strong class="text-stone-900">(i) 復興古希羅文明 Revival of Ancient Greco-Roman Civilisation:</strong>
+                                    <p class="text-sm text-stone-600">歐洲人熱衷研究古希臘及羅馬的遺產，在藝術及建築上重新採用古典風格，並親身驗證古代科學理論。<br><span class="text-xs text-stone-500">Europeans became enthusiastic about studying Greco-Roman heritage, adopting classical styles in art and architecture, and testing ancient scientific theories.</span></p>
+                                </div>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-amber-600 mt-1"></i>
+                                <div>
+                                    <strong class="text-stone-900">(ii) 強調人文主義 Emphasising Humanism:</strong>
+                                    <p class="text-sm text-stone-600">將「人」置於關注的中心。強調表現人性、人類價值與理解世界的能力，堅決否定教會將「苦行」視為理想生活的觀念。<br><span class="text-xs text-stone-500">Placed humans at the centre. Emphasised human nature, human values, and the ability to understand the world, rejecting the Church's view of suffering as ideal.</span></p>
+                                </div>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-check-circle text-amber-600 mt-1"></i>
+                                <div>
+                                    <strong class="text-stone-900">(iii) 挑戰傳統 Challenge to Tradition:</strong>
+                                    <p class="text-sm text-stone-600">高度重視理性思考和探索精神，不再盲目相信權威，主動質疑傳統及教會教導，積極追求學術突破與創新。<br><span class="text-xs text-stone-500">Valued rational thinking and the spirit of inquiry. Refused to blindly follow authority, questioned traditions and Church teachings, and actively pursued breakthroughs.</span></p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Accordion 2: Causes of Renaissance -->
+                <div class="note-block renaissance glass-panel rounded-xl shadow-sm border border-stone-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-ren-2')" class="w-full px-6 py-4 flex items-center justify-between bg-stone-50/80 hover:bg-amber-50/50 transition text-left">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-8 h-8 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-sm">1.2</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-stone-800">文藝復興的五大成因</h3>
+                                <p class="text-xs text-amber-800 font-medium">Five Major Causes of the Renaissance</p>
+                            </div>
+                        </div>
+                        <i id="icon-acc-ren-2" class="fa-solid fa-chevron-down text-stone-400 transition-transform"></i>
+                    </button>
+                    <div id="acc-ren-2" class="px-6 py-4 space-y-4 border-t border-stone-200 text-stone-700">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 bg-white rounded-xl border border-stone-200 shadow-sm">
+                                <span class="text-xs font-bold px-2 py-1 bg-amber-100 text-amber-800 rounded">成因 1 Cause 1</span>
+                                <h4 class="font-bold text-stone-900 mt-2">封建社會瓦解 Decline of Feudal Society</h4>
+                                <p class="text-sm text-stone-600 mt-1">城鎮興起與黑死病爆發削弱了封建制度。農奴離開莊園成為自由市民，擁有了更多自由與時間投入藝術與學術。<br><span class="text-xs text-stone-500">The rise of towns and the Black Death weakened feudalism. Serfs left manors to become free townspeople with time for art and learning.</span></p>
+                            </div>
+                            <div class="p-4 bg-white rounded-xl border border-stone-200 shadow-sm">
+                                <span class="text-xs font-bold px-2 py-1 bg-amber-100 text-amber-800 rounded">成因 2 Cause 2</span>
+                                <h4 class="font-bold text-stone-900 mt-2">古希羅與伊斯蘭文明刺激 Classical & Islamic Influences</h4>
+                                <p class="text-sm text-stone-600 mt-1">阿拉伯人保留並翻譯了大量的古希羅典籍。11-13世紀的十字軍東征促進了歐亞知識交流，重新燃起歐洲人對古典文化的興趣。<br><span class="text-xs text-stone-500">Arabs preserved Greco-Roman works. The Crusades promoted knowledge exchange, reigniting interest in classical culture.</span></p>
+                            </div>
+                            <div class="p-4 bg-white rounded-xl border border-stone-200 shadow-sm">
+                                <span class="text-xs font-bold px-2 py-1 bg-amber-100 text-amber-800 rounded">成因 3 Cause 3</span>
+                                <h4 class="font-bold text-stone-900 mt-2">富有城邦與新興階層 Rise of Wealthy City-States</h4>
+                                <p class="text-sm text-stone-600 mt-1">意大利城邦因地中海貿易而繁榮。富裕的商人與銀行家追求世俗生活，大量慷慨資助藝術家與學者，以提升家族地位。<br><span class="text-xs text-stone-500">Italian city-states thrived on trade. Merchants and bankers pursued secular life, patronising artists to boost family status.</span></p>
+                            </div>
+                            <div class="p-4 bg-white rounded-xl border border-stone-200 shadow-sm">
+                                <span class="text-xs font-bold px-2 py-1 bg-amber-100 text-amber-800 rounded">成因 4 Cause 4</span>
+                                <h4 class="font-bold text-stone-900 mt-2">大學興起與學者西逃 Rise of Universities & Scholars</h4>
+                                <p class="text-sm text-stone-600 mt-1">12世紀起大學興起提供學術自由；14世紀拜占庭帝國動盪，學者攜帶珍貴古希羅手稿逃往意大利，保存在大學與圖書館中。<br><span class="text-xs text-stone-500">Universities provided academic freedom; Byzantine scholars fled to Italy with classical manuscripts stored in universities.</span></p>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl border border-stone-200 shadow-sm">
+                            <span class="text-xs font-bold px-2 py-1 bg-amber-100 text-amber-800 rounded">成因 5 Cause 5</span>
+                            <h4 class="font-bold text-stone-900 mt-2">教會權威下降 Decline of Church Authority</h4>
+                            <p class="text-sm text-stone-600 mt-1">歐洲人發現教會教義有許多錯誤，十字軍東征的失敗亦削弱了教會威信。君主拒絕繳稅，促使人們擺脫宗教控制，探索人的自我價值。<br><span class="text-xs text-stone-500">Errors in Church teachings and failed Crusades reduced Church prestige. Monarchs refused Church taxes, encouraging people to break free from religious control.</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion 3: Renaissance Developments -->
+                <div class="note-block renaissance glass-panel rounded-xl shadow-sm border border-stone-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-ren-3')" class="w-full px-6 py-4 flex items-center justify-between bg-stone-50/80 hover:bg-amber-50/50 transition text-left">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-8 h-8 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-sm">1.3</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-stone-800">主要發展：文學、藝術、建築與科學</h3>
+                                <p class="text-xs text-amber-800 font-medium">Major Developments: Literature, Art, Architecture & Science</p>
+                            </div>
+                        </div>
+                        <i id="icon-acc-ren-3" class="fa-solid fa-chevron-down text-stone-400 transition-transform"></i>
+                    </button>
+                    <div id="acc-ren-3" class="px-6 py-4 space-y-6 border-t border-stone-200 text-stone-700">
+
+                        <!-- Literature -->
+                        <div>
+                            <h4 class="font-bold text-amber-900 text-md border-l-4 border-amber-600 pl-2 mb-2"><i class="fa-solid fa-book text-amber-600 mr-1"></i> 文學發展 Literature</h4>
+                            <div class="text-sm bg-white p-4 rounded-xl border border-stone-200 space-y-2">
+                                <p><strong>核心改變 Core Shift:</strong> 從中古時代「以宗教聖人傳記為主、使用拉丁文（Latin）」轉變為「以人為中心、展現世俗生活、使用各國母語（Vernacular Languages）」創作。<br><span class="text-xs text-stone-500">Shifted from religious biographies in Latin to human-centred, secular works written in native vernacular languages.</span></p>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2 pt-2 border-t border-stone-100 text-xs">
+                                    <div class="bg-amber-50 p-2.5 rounded-lg border border-amber-200">
+                                        <strong class="text-amber-900">但丁 Dante (1265-1321)</strong><br>
+                                        作品 Work: 《神曲》 <i>Divine Comedy</i> (意大利文)<br>
+                                        特色 Feature: 描繪天堂地獄，揭露社會不公。<br><span class="text-xs text-stone-500">Depicted heaven and hell, exposing social injustice.</span>
+                                    </div>
+                                    <div class="bg-amber-50 p-2.5 rounded-lg border border-amber-200">
+                                        <strong class="text-amber-900">薄伽丘 Boccaccio (1313-1375)</strong><br>
+                                        作品 Work: 《十日談》 <i>Decameron</i> (意大利文)<br>
+                                        特色 Feature: 描述避疫故事，批判教會與展現人性。<br><span class="text-xs text-stone-500">Tales during plague, criticizing Church and human nature.</span>
+                                    </div>
+                                    <div class="bg-amber-50 p-2.5 rounded-lg border border-amber-200">
+                                        <strong class="text-amber-900">莎士比亞 Shakespeare (1564-1616)</strong><br>
+                                        作品 Work: 《哈姆雷特》 <i>Hamlet</i> 等 (英文)<br>
+                                        特色 Feature: 深入探索複雜的人類情感與世俗現實。<br><span class="text-xs text-stone-500">Explored complex human emotions and secular reality.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Art & Sculpture -->
+                        <div>
+                            <h4 class="font-bold text-amber-900 text-md border-l-4 border-amber-600 pl-2 mb-2"><i class="fa-solid fa-palette text-amber-600 mr-1"></i> 藝術與雕塑 Art & Sculpture</h4>
+                            <div class="text-sm bg-white p-4 rounded-xl border border-stone-200 space-y-3">
+                                <p><strong>藝術突破 Art Innovations:</strong> 引入透視法 (perspective)、光影明暗對比 (shadowing) 及人體解剖學 (dissection)，呈現立體深度 (3D)、精準比例 (proportional balance) 與極致的寫實感 (realism)。<br><span class="text-xs text-stone-500">Introduced perspective, shadowing, and human anatomy for 3D depth, precise proportional balance, and extreme realism.</span></p>
+                                <div class="bg-amber-50/70 p-3 rounded-lg border border-amber-200 text-xs">
+                                    <strong class="text-amber-900 text-sm block mb-1">藝術三傑 Three Great Masters of Art:</strong>
+                                    <ul class="list-disc pl-4 space-y-1">
+                                        <li><strong>達文西 Leonardo da Vinci:</strong> 精通透視與光影對比。代表作：《蒙娜麗莎》(<i>Mona Lisa</i>)、《最後的晚餐》(<i>The Last Supper</i>)。<br><span class="text-xs text-stone-500">Mastered perspective and lighting shadow contrast. Famous works: Mona Lisa, The Last Supper.</span></li>
+                                        <li><strong>米開朗基羅 Michelangelo:</strong> 擅長展現人體肌肉動態與深層情感。代表作：西斯汀教堂天花畫 (<i>Sistine Chapel ceiling</i>)、《大衛像》(<i>David</i>)。<br><span class="text-xs text-stone-500">Famous for muscle dynamics and profound human emotions. Works: Sistine Chapel ceiling, David.</span></li>
+                                        <li><strong>拉斐爾 Raphael:</strong> 作品以和諧、優雅與平靜著稱。代表作：《雅典學院》(<i>School of Athens</i>)。<br><span class="text-xs text-stone-500">Known for harmony, elegance, and peace. Famous work: The School of Athens.</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Architecture -->
+                        <div>
+                            <h4 class="font-bold text-amber-900 text-md border-l-4 border-amber-600 pl-2 mb-2"><i class="fa-solid fa-gopuram text-amber-600 mr-1"></i> 建築風格 Architecture</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                                <div class="bg-red-50/60 p-3 rounded-xl border border-red-200">
+                                    <strong class="text-red-900 block mb-1">中古哥德式 Gothic Style (Before)</strong>
+                                    <ul class="text-xs list-disc pl-4 space-y-1 text-stone-700">
+                                        <li>高尖塔 Tall spires (象徵接近上帝 Symbolising being closer to God)</li>
+                                        <li>尖形拱門 Pointed arches (引導視線向上 Guiding eyes upward)</li>
+                                        <li>飛扶壁 Flying buttresses (支撐高大外牆 Supporting exterior walls)</li>
+                                        <li>彩色玻璃窗 Stained-glass windows (講述聖經故事 Depicting Bible stories)</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-green-50/60 p-3 rounded-xl border border-green-200">
+                                    <strong class="text-green-900 block mb-1">文藝復興式 Renaissance Style (During)</strong>
+                                    <ul class="text-xs list-disc pl-4 space-y-1 text-stone-700">
+                                        <li>對稱與比例 Symmetry & proportion (展現理性和諧 Displaying rational harmony)</li>
+                                        <li>圓柱與三角楣 Columns & triangular pediments (古典希羅元素 Classical elements)</li>
+                                        <li>半圓拱門與圓頂 Semi-circular arches & domes (優雅幾何美感 Geometric elegance)</li>
+                                        <li>柱廊與對稱廣場 Colonnades & symmetrical squares (人本開放空間 Human-centered space)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Natural Science -->
+                        <div>
+                            <h4 class="font-bold text-amber-900 text-md border-l-4 border-amber-600 pl-2 mb-2"><i class="fa-solid fa-flask text-amber-600 mr-1"></i> 自然科學 Natural Science</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                                <div class="bg-white p-3 rounded-xl border border-stone-200">
+                                    <strong class="text-stone-900 block font-bold border-b pb-1 mb-2">醫學 Discoveries in Medicine</strong>
+                                    <p class="text-xs text-stone-600 mb-1">突破解剖禁令 Broke dissection bans:</p>
+                                    <ul class="text-xs list-disc pl-4 space-y-1">
+                                        <li><strong>Fracastoro (弗萊卡斯楚):</strong> 證實疾病由細菌傳播。<br><span class="text-xs text-stone-500">Proved that diseases are spread by germs/bacteria.</span></li>
+                                        <li><strong>Vesalius (維塞利亞斯):</strong> 親自解剖人體，詳細紀錄骨骼與器官結構。<br><span class="text-xs text-stone-500">Dissected human bodies, mapping bones and organ structures in detail.</span></li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white p-3 rounded-xl border border-stone-200">
+                                    <strong class="text-stone-900 block font-bold border-b pb-1 mb-2">天文學 Astronomy</strong>
+                                    <p class="text-xs text-stone-600 mb-1">推翻地心說 Overthrew Geocentrism:</p>
+                                    <ul class="text-xs list-disc pl-4 space-y-1">
+                                        <li><strong>Copernicus (哥白尼):</strong> 提出「日心說」(Heliocentrism)。<br><span class="text-xs text-stone-500">Proposed Heliocentrism: the Sun is the centre of the universe.</span></li>
+                                        <li><strong>Galileo (伽利略):</strong> 用自製望遠鏡觀測實證日心說。<br><span class="text-xs text-stone-500">Proved Heliocentrism empirically using a telescope.</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Accordion 4: Reformation Background & Martin Luther -->
+                <div class="note-block reformation glass-panel rounded-xl shadow-sm border border-stone-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-ref-1')" class="w-full px-6 py-4 flex items-center justify-between bg-stone-50/80 hover:bg-amber-50/50 transition text-left">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-8 h-8 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-sm">2.1</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-stone-800">宗教改革背景與馬丁路德</h3>
+                                <p class="text-xs text-amber-800 font-medium">Background of Reformation & Martin Luther</p>
+                            </div>
+                        </div>
+                        <i id="icon-acc-ref-1" class="fa-solid fa-chevron-down text-stone-400 transition-transform"></i>
+                    </button>
+                    <div id="acc-ref-1" class="px-6 py-4 space-y-4 border-t border-stone-200 text-stone-700">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+                            <div class="p-3 bg-white rounded-xl border border-stone-200">
+                                <strong class="text-amber-900 block font-bold">1. 質疑拉丁聖經 Doubts on Latin Bible</strong>
+                                <p class="text-xs text-stone-600 mt-1">埃拉斯默斯 (Erasmus) 出版希臘文新約聖經，揭露拉丁文譯本有誤，許多教會教義缺乏聖經依據。<br><span class="text-xs text-stone-500">Erasmus published Greek New Testament, revealing errors in Latin translation and unbiblical doctrines.</span></p>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-stone-200">
+                                <strong class="text-amber-900 block font-bold">2. 君主不滿 Resentment of Kings</strong>
+                                <p class="text-xs text-stone-600 mt-1">教會干預世俗政治，強大的歐洲君主希望削弱教會勢力以擴張王權與稅收。<br><span class="text-xs text-stone-500">Church interfered in politics; powerful European monarchs sought to reduce Church power and retain taxes.</span></p>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-stone-200">
+                                <strong class="text-amber-900 block font-bold">3. 教會腐敗 Church Corruption</strong>
+                                <p class="text-xs text-stone-600 mt-1">聖職人員販賣神職與贖罪券 (indulgences)，宣稱購買後可減少在煉獄 (purgatory) 中的受苦時間。<br><span class="text-xs text-stone-500">Clergy sold church offices and indulgences, claiming to reduce punishment in purgatory.</span></p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-amber-50 rounded-xl border border-amber-200 space-y-2">
+                            <span class="px-2 py-0.5 bg-red-600 text-white font-bold text-xs rounded">導火線 Immediate Trigger</span>
+                            <h4 class="font-bold text-stone-900">1517年販賣贖罪券與《九十五點論證》(Ninety-Five Theses)</h4>
+                            <p class="text-sm text-stone-700">
+                                天主教會為籌款興建羅馬聖伯多祿大教堂 (St. Peter's Basilica) 大肆售券。1517年10月，<strong>馬丁路德 (Martin Luther)</strong> 在威登堡教堂大門貼出《九十五點論證》：
+                                <br><span class="text-xs text-stone-500">The Church sold indulgences to build St. Peter's Basilica. In Oct 1517, Martin Luther posted the Ninety-Five Theses on the Wittenberg church door:</span>
+                            </p>
+                            <ul class="text-xs list-disc pl-5 space-y-1 text-amber-900">
+                                <li>主張<strong>「因信稱義」(Salvation by faith alone)</strong>，買贖罪券無法確保靈魂得救。<br><span class="text-xs text-stone-600">Advocated "Salvation by faith alone", buying indulgences cannot guarantee salvation.</span></li>
+                                <li>強調唯有上帝能赦免罪惡，教宗無權決定靈魂去向。<br><span class="text-xs text-stone-600">Emphasised only God can forgive sins, the Pope has no authority over souls.</span></li>
+                                <li>這份論證迅速被翻譯並藉由印刷術傳遍全歐洲。<br><span class="text-xs text-stone-600">The theses were quickly translated and printed across Europe.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion 5: Protestantism & Counter-Reformation & Impacts -->
+                <div class="note-block reformation glass-panel rounded-xl shadow-sm border border-stone-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-ref-2')" class="w-full px-6 py-4 flex items-center justify-between bg-stone-50/80 hover:bg-amber-50/50 transition text-left">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-8 h-8 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-sm">2.2</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-stone-800">新教興起、反宗教改革與歷史影響</h3>
+                                <p class="text-xs text-amber-800 font-medium">Rise of Protestantism, Counter-Reformation & Impacts</p>
+                            </div>
+                        </div>
+                        <i id="icon-acc-ref-2" class="fa-solid fa-chevron-down text-stone-400 transition-transform"></i>
+                    </button>
+                    <div id="acc-ref-2" class="px-6 py-4 space-y-4 border-t border-stone-200 text-stone-700">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 bg-white rounded-xl border border-stone-200">
+                                <h4 class="font-bold text-amber-900 border-b pb-1 mb-2">新教派別興起 Rise of Protestant Churches</h4>
+                                <p class="text-xs text-stone-600 mb-2">1521年路德被逐出天主教會，但在德意志貴族支持下新教快速發展：<br><span class="text-xs text-stone-500">Excommunicated in 1521, Luther gained noble support, leading to new churches:</span></p>
+                                <ul class="text-xs list-disc pl-4 space-y-1">
+                                    <li><strong>路德宗 Lutheranism:</strong> 德國及北歐主流教派。<span class="text-xs text-stone-500">(Mainstream in Germany & Northern Europe)</span></li>
+                                    <li><strong>歸正宗 Reformed Church:</strong> 由加爾文 (Calvin) 在瑞士推動，主張預定論。<span class="text-xs text-stone-500">(Pushed by Calvin in Switzerland, taught Predestination)</span></li>
+                                    <li><strong>聖公宗 Anglican Church:</strong> 英國國王亨利八世因離婚爭端創立。<span class="text-xs text-stone-500">(Established by King Henry VIII of England)</span></li>
+                                </ul>
+                            </div>
+                            <div class="p-4 bg-white rounded-xl border border-stone-200">
+                                <h4 class="font-bold text-amber-900 border-b pb-1 mb-2">天主教會反宗教改革 Counter-Reformation</h4>
+                                <p class="text-xs text-stone-600 mb-2">天主教會內部推動改革以挽回信徒與聲譽：<br><span class="text-xs text-stone-500">Internal reform by the Catholic Church to regain followers and reputation:</span></p>
+                                <ul class="text-xs list-disc pl-4 space-y-1">
+                                    <li>全面禁止販售贖罪券，成立<strong>耶穌會 (Society of Jesus)</strong> 專責傳教與教育。<span class="text-xs text-stone-500">(Banned indulgence sales, formed Society of Jesus for education/mission)</span></li>
+                                    <li>給予天主教國家君主更多宗教事務自主權。<span class="text-xs text-stone-500">(Granted Catholic monarchs more religious autonomy)</span></li>
+                                    <li>堅持唯有天主教會擁有詮釋聖經的權威。<span class="text-xs text-stone-500">(Maintained that Church alone has authority to interpret the Bible)</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Summary Impacts Table -->
+                        <div class="mt-4">
+                            <h4 class="font-bold text-stone-900 mb-2">歷史影響 Summary Impacts:</h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-xs text-left text-stone-600 border border-stone-200 rounded-lg">
+                                    <thead class="bg-amber-100 text-amber-900 font-bold">
+                                        <tr>
+                                            <th class="p-2.5 border-b">影響領域 Area</th>
+                                            <th class="p-2.5 border-b">中文詳細解釋 Chinese Explanation</th>
+                                            <th class="p-2.5 border-b">英文詳細解釋 English Explanation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-stone-200 bg-white">
+                                        <tr>
+                                            <td class="p-2.5 font-bold text-stone-900">宗教衝突 Religious Wars</td>
+                                            <td class="p-2.5">基督教分裂為天主教與新教，引發歐洲多國爆發長期宗教戰爭（如三十年戰爭 1618-1648）。</td>
+                                            <td class="p-2.5">Christianity split into Catholicism and Protestantism, triggering religious wars across Europe (e.g., Thirty Years' War 1618-1648).</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-2.5 font-bold text-stone-900">王權擴張 Rise of Royal Power</td>
+                                            <td class="p-2.5">天主教教會勢力衰落，世俗君主收回實權或直接控制新教教會，為專制王權鋪路。</td>
+                                            <td class="p-2.5">Catholic Church power declined; monarchs reclaimed power or controlled Protestant churches, paving the way for Absolutism.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-2.5 font-bold text-stone-900">世俗生活 Secular Pursuit</td>
+                                            <td class="p-2.5">新教鼓勵信徒透過勤奮工作榮耀上帝，促進了資本主義與商業經濟的蓬勃發展。</td>
+                                            <td class="p-2.5">Protestantism encouraged glorifying God through hard work, fostering capitalism and commercial economic growth.</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-2.5 font-bold text-stone-900">自由民主 Freedom & Democracy</td>
+                                            <td class="p-2.5">提倡個人信仰自由與「上帝面前人人平等」，奠定了歐洲現代自由民主思想的基礎。</td>
+                                            <td class="p-2.5">Promoted individual freedom of faith and equality before God, laying the foundations for modern European democratic thought.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion 6: Scientific Revolution -->
+                <div class="note-block scientific glass-panel rounded-xl shadow-sm border border-stone-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-sci-1')" class="w-full px-6 py-4 flex items-center justify-between bg-stone-50/80 hover:bg-amber-50/50 transition text-left">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-8 h-8 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-sm">3.1</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-stone-800">科學革命的定義、成因與發展</h3>
+                                <p class="text-xs text-amber-800 font-medium">Definition, Causes & Developments of Scientific Revolution</p>
+                            </div>
+                        </div>
+                        <i id="icon-acc-sci-1" class="fa-solid fa-chevron-down text-stone-400 transition-transform"></i>
+                    </button>
+                    <div id="acc-sci-1" class="px-6 py-4 space-y-4 border-t border-stone-200 text-stone-700">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 bg-amber-50/60 p-4 rounded-xl border border-amber-200/60 text-sm">
+                            <div><strong class="text-amber-900 block">性質 Nature:</strong> 一場科學與科技運動<br><span class="text-xs text-stone-600">A scientific and technological movement</span></div>
+                            <div><strong class="text-amber-900 block">發源地 Birthplace:</strong> 歐洲<br><span class="text-xs text-stone-600">Europe</span></div>
+                            <div><strong class="text-amber-900 block">時期 Period:</strong> 17世紀<br><span class="text-xs text-stone-600">17th century</span></div>
+                        </div>
+
+                        <h4 class="font-bold text-stone-900 text-md mt-2 border-l-4 border-amber-600 pl-2">三項成因 Causes:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+                            <div class="p-3 bg-white rounded-xl border border-stone-200">
+                                <strong class="text-amber-900 block font-bold">(i) 文藝復興與印刷術 Influence of Renaissance & Printing Press</strong>
+                                <p class="text-xs text-stone-600 mt-1">文藝復興期間歐洲人提出新科學理論。印刷術 (printing press) 促進書籍流通並推動學者間的交流。<br><span class="text-xs text-stone-500">Europeans proposed new theories. Printing press promoted book circulation and scholarly exchanges.</span></p>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-stone-200">
+                                <strong class="text-amber-900 block font-bold">(ii) 歐洲君主的支持 Support from European Kings</strong>
+                                <p class="text-xs text-stone-600 mt-1">自文藝復興起科學挑戰教會權威。強大的君主資助科學研究，以削弱教會並加強自身權力與國家實力。<br><span class="text-xs text-stone-500">Strong kings funded science to weaken the Church and strengthen their own power.</span></p>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-stone-200">
+                                <strong class="text-amber-900 block font-bold">(iii) 新航路開闢的鼓舞 Impact of European Exploration</strong>
+                                <p class="text-xs text-stone-600 mt-1">15-16世紀開闢新航路 (Opening of New Sea Routes)，環球航行證實地球是圓的並推翻舊理論，鼓舞歐洲人探索科學領域。<br><span class="text-xs text-stone-500">Circumnavigation proved Earth is round, encouraging exploration in science.</span></p>
+                            </div>
+                        </div>
+
+                        <h4 class="font-bold text-stone-900 text-md mt-4 border-l-4 border-amber-600 pl-2">主要發展 Major Developments:</h4>
+                        <div class="space-y-3 text-sm">
+                            <div class="p-3 bg-white rounded-xl border border-stone-200">
+                                <strong class="text-stone-900 block font-bold mb-1">(i) 科學學會的成立 Formation of Scientific Societies</strong>
+                                <p class="text-xs text-stone-600">過往科學工作多由教會主導且很少分享；17世紀出現獨立科學學會（如1660年成立的「皇家學會 Royal Society」），舉行會議並出版期刊，提供學術交流平台。<br><span class="text-xs text-stone-500">Independent societies (e.g. Royal Society in 1660) held meetings and published journals for academic exchanges.</span></p>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-stone-200">
+                                <strong class="text-stone-900 block font-bold mb-1">(ii) 科學方法與主要成就 Scientific Methods & Main Achievements</strong>
+                                <p class="text-xs text-stone-600 mb-2">學者強調「科學方法」(scientific methods)：需要懷疑精神 (scepticism)、觀察 (observation)、假設 (hypothesis)、實驗 (experimentation) 及理性分析 (rational analysis) 以得出結論。<br><span class="text-xs text-stone-500">Stressed scientific methods: scepticism, observation, hypothesis, experiment, and rational analysis.</span></p>
+                                <p class="text-xs text-amber-900 bg-amber-50 p-2 rounded border border-amber-200"><strong>牛頓 Newton (1642-1727):</strong> 提出「萬有引力定律」(law of universal gravitation)。<br><span class="text-xs text-stone-600">Suggested the law of universal gravitation.</span></p>
+                            </div>
+                        </div>
+
+                        <h4 class="font-bold text-stone-900 text-md mt-4 border-l-4 border-amber-600 pl-2">影響 Impacts:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                            <div class="p-3 bg-white rounded-xl border border-stone-200">
+                                <strong class="text-amber-900 block font-bold">(i) 啟發歐洲人的新思維 Inspiring New European Mindset</strong>
+                                <p class="text-xs text-stone-600 mt-1">推動理性思考與質疑精神，深化對自然的理解。「自然法則」(laws of nature) 啟發思想家將其應用於政治與社會，引發17世紀末的啟蒙運動。<br><span class="text-xs text-stone-500">Encouraged rational thinking. "Laws of nature" inspired thinkers to apply principles to politics, sparking the Enlightenment.</span></p>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-stone-200">
+                                <strong class="text-amber-900 block font-bold">(ii) 奠定近代歐洲科技優勢 Foundation for Technological Supremacy</strong>
+                                <p class="text-xs text-stone-600 mt-1">科學家發現自然法則並應用於工業與交通，新科技快速湧現，為18世紀工業革命 (Industrial Revolution) 奠定基礎。<br><span class="text-xs text-stone-500">Natural laws applied to industry laid the foundation for the Industrial Revolution.</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion 7: The Enlightenment -->
+                <div class="note-block enlightenment glass-panel rounded-xl shadow-sm border border-stone-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-enl-1')" class="w-full px-6 py-4 flex items-center justify-between bg-stone-50/80 hover:bg-amber-50/50 transition text-left">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-8 h-8 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-sm">4.1</span>
+                            <div>
+                                <h3 class="text-lg font-bold text-stone-800">啟蒙運動的定義、背景與思想家</h3>
+                                <p class="text-xs text-amber-800 font-medium">Definition, Background & Thinkers of the Enlightenment</p>
+                            </div>
+                        </div>
+                        <i id="icon-acc-enl-1" class="fa-solid fa-chevron-down text-stone-400 transition-transform"></i>
+                    </button>
+                    <div id="acc-enl-1" class="px-6 py-4 space-y-4 border-t border-stone-200 text-stone-700">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 bg-amber-50/60 p-4 rounded-xl border border-amber-200/60 text-sm">
+                            <div><strong class="text-amber-900 block">性質 Nature:</strong> 一場思想與文化運動<br><span class="text-xs text-stone-600">An intellectual and cultural movement</span></div>
+                            <div><strong class="text-amber-900 block">發源地 Birthplace:</strong> 歐洲<br><span class="text-xs text-stone-600">Europe</span></div>
+                            <div><strong class="text-amber-900 block">時期 Period:</strong> 17世紀中至18世紀<br><span class="text-xs text-stone-600">mid-17th and 18th centuries</span></div>
+                        </div>
+
+                        <div class="p-3 bg-white rounded-xl border border-stone-200 text-sm">
+                            <strong class="text-stone-900 block font-bold mb-1">核心主張 Core Ideas:</strong>
+                            <p class="text-xs text-stone-600">啟蒙思想家提倡人人享有「天賦人權」(natural rights) 如自由 (liberty) 與平等 (equality)，反對政治與社會不公義，成為近代歐洲政治史的里程碑。<br><span class="text-xs text-stone-500">Advocated that everyone enjoys natural rights (liberty, equality) and opposed political/social injustice.</span></p>
+                        </div>
+
+                        <h4 class="font-bold text-stone-900 text-md mt-2 border-l-4 border-amber-600 pl-2">兩大背景 Background:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                            <div class="p-3 bg-white rounded-xl border border-stone-200">
+                                <strong class="text-amber-900 block font-bold">(i) 歐洲人價值觀的轉變 Changes in European Values</strong>
+                                <p class="text-xs text-stone-600 mt-1">文藝復興、宗教改革與科學革命推動人文主義與理性思考，挑戰傳統權威，並開始將這些價值應用於政治與社會。<br><span class="text-xs text-stone-500">Promoted humanism and rational thinking, applying values to politics and society.</span></p>
+                            </div>
+                            <div class="p-3 bg-white rounded-xl border border-stone-200">
+                                <strong class="text-amber-900 block font-bold">(ii) 對專制主義的不滿 Discontent with Absolutism</strong>
+                                <p class="text-xs text-stone-600 mt-1">16-17世紀國王權力擴張形成專制主義 (absolutism)，專制國王握有無限制權力並打壓反對者。他們支持「君權神授」(Divine Right of Kings)，宣稱權力來自上帝。17世紀中葉起歐洲人開始批評專制主義。<br><span class="text-xs text-stone-500">Absolute kings with unlimited power supported Divine Right of Kings. People challenged absolutism for violating rights.</span></p>
+                            </div>
+                        </div>
+
+                        <h4 class="font-bold text-stone-900 text-md mt-4 border-l-4 border-amber-600 pl-2">主要啟蒙思想家 Major Thinkers:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                            <div class="bg-amber-50 p-3 rounded-xl border border-amber-200">
+                                <strong class="text-amber-900 text-sm block mb-1">洛克 Locke (1632-1704)</strong>
+                                <p class="text-stone-700"><strong>天賦人權 Natural Rights:</strong> 人生而擁有生命、自由與財產權 (life, liberty, property)。<br><strong>社會契約 Social Contract:</strong> 政府由人民與統治者訂立契約建立，若政府侵害權利，人民有權推翻。<br><span class="text-stone-500">Governments established by social contract; people can overthrow government violating rights.</span></p>
+                            </div>
+                            <div class="bg-amber-50 p-3 rounded-xl border border-amber-200">
+                                <strong class="text-amber-900 text-sm block mb-1">孟德斯鳩 Montesquieu (1689-1755)</strong>
+                                <p class="text-stone-700"><strong>三權分立 Separation of Powers:</strong> 提出立法、行政與司法權力分立 (legislative, executive, judicial powers)。<br>權力應互相制衡 (checks and balances)，防止專制與濫權。<br><span class="text-stone-500">Separated powers into 3 branches to check each other and prevent absolutism.</span></p>
+                            </div>
+                            <div class="bg-amber-50 p-3 rounded-xl border border-amber-200">
+                                <strong class="text-amber-900 text-sm block mb-1">盧梭 Rousseau (1712-1778)</strong>
+                                <p class="text-stone-700"><strong>主權在民 Popular Sovereignty:</strong> 政府權力來自人民，統治者應依據大眾意願 (general will) 治理。<br>若統治者違背民意，人民有權廢除。<br><span class="text-stone-500">Government power comes from the people and must follow the general will.</span></p>
+                            </div>
+                        </div>
+
+                        <h4 class="font-bold text-stone-900 text-md mt-4 border-l-4 border-amber-600 pl-2">歷史影響 Historical Impacts:</h4>
+                        <div class="space-y-2 text-xs text-stone-700 bg-white p-3 rounded-xl border border-stone-200">
+                            <p><strong>1. 激發革命與政治改革 Sparked Revolutions & Reforms:</strong> 啟蒙思想削弱了「君權神授」，啟發了美國獨立戰爭 (American Revolution, 1775) 與法國大革命 (French Revolution, 1789)。<br><span class="text-stone-500">Weakened Divine Right of Kings, inspiring American and French Revolutions.</span></p>
+                            <p><strong>2. 建立現代憲政體制 Established Modern Constitutions:</strong> 許多國家制定憲法 (constitutions)，實行三權分立與保障天賦人權，奠定現代民主制度。<br><span class="text-stone-500">Countries created constitutions implementing separation of powers to safeguard rights.</span></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= SECTION 2: TIMELINE ================= -->
+        <section id="section-timeline" class="hidden space-y-6">
+            <div class="bg-stone-900 text-white rounded-2xl p-6 shadow-xl border border-amber-600/30">
+                <h2 class="text-2xl font-bold text-amber-300">歷史演變時間線 (Historical Timeline)</h2>
+                <p class="text-stone-300 text-sm mt-1">從中古時代末期到歐洲重大轉型的雙語全景圖 (Chronological Evolution of Modern Europe)</p>
+            </div>
+
+            <!-- Visual Flowchart -->
+            <div class="glass-panel p-6 rounded-2xl shadow-sm border border-stone-200">
+                <div class="relative border-l-4 border-amber-500 pl-6 space-y-8 ml-4 sm:ml-8">
+
+                    <!-- Node 1 -->
+                    <div class="relative">
+                        <span class="absolute -left-[35px] top-0 w-6 h-6 rounded-full bg-amber-500 border-4 border-white shadow"></span>
+                        <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm">
+                            <span class="text-xs font-extrabold text-amber-700 uppercase">14th - 17th Century (14至17世紀)</span>
+                            <h3 class="text-lg font-bold text-stone-900">1. 文藝復興 (The Renaissance)</h3>
+                            <p class="text-xs text-stone-600 mt-1">發源於意大利，提倡人文主義 (Humanism) 與古典希羅文化復興。<br><span class="text-xs text-stone-500">Originated in Italy, promoting Humanism and the revival of Greco-Roman culture.</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Node 2 -->
+                    <div class="relative">
+                        <span class="absolute -left-[35px] top-0 w-6 h-6 rounded-full bg-amber-700 border-4 border-white shadow"></span>
+                        <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm">
+                            <span class="text-xs font-extrabold text-amber-700 uppercase">1453 / 15th-16th Century</span>
+                            <h3 class="text-lg font-bold text-stone-900">2. 中古結束與新航路開闢 (End of Medieval & Opening of New Sea Routes)</h3>
+                            <p class="text-xs text-stone-600 mt-1">拜占庭帝國滅亡；歐洲人進行海上探索環球航行，證實地球是圓的。<br><span class="text-xs text-stone-500">Fall of Byzantine Empire; sea routes exploration proved the Earth is round.</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Node 3 -->
+                    <div class="relative">
+                        <span class="absolute -left-[35px] top-0 w-6 h-6 rounded-full bg-amber-500 border-4 border-white shadow"></span>
+                        <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm">
+                            <span class="text-xs font-extrabold text-amber-700 uppercase">16th - 17th Century / 1517</span>
+                            <h3 class="text-lg font-bold text-stone-900">3. 宗教改革 (The Reformation)</h3>
+                            <p class="text-xs text-stone-600 mt-1">馬丁路德張貼《九十五點論證》，基督教分裂，新教派別成立。<br><span class="text-xs text-stone-500">Martin Luther posted the 95 Theses; Christianity split and Protestant churches emerged.</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Node 4 -->
+                    <div class="relative">
+                        <span class="absolute -left-[35px] top-0 w-6 h-6 rounded-full bg-amber-600 border-4 border-white shadow"></span>
+                        <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm">
+                            <span class="text-xs font-extrabold text-amber-700 uppercase">17th Century (17世紀)</span>
+                            <h3 class="text-lg font-bold text-stone-900">4. 科學革命 (The Scientific Revolution)</h3>
+                            <p class="text-xs text-stone-600 mt-1">強調科學方法與自然法則，牛頓提出萬有引力定律。<br><span class="text-xs text-stone-500">Emphasised scientific methods and laws of nature; Newton proposed gravitation.</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Node 5 -->
+                    <div class="relative">
+                        <span class="absolute -left-[35px] top-0 w-6 h-6 rounded-full bg-amber-500 border-4 border-white shadow"></span>
+                        <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm">
+                            <span class="text-xs font-extrabold text-amber-700 uppercase">Mid 17th - 18th Century (17世紀中至18世紀)</span>
+                            <h3 class="text-lg font-bold text-stone-900">5. 啟蒙運動 (The Enlightenment)</h3>
+                            <p class="text-xs text-stone-600 mt-1">提倡天賦人權、社會契約與三權分立，批判專制主義。<br><span class="text-xs text-stone-500">Promoted natural rights, social contract, and separation of powers against absolutism.</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Node 6 -->
+                    <div class="relative">
+                        <span class="absolute -left-[35px] top-0 w-6 h-6 rounded-full bg-stone-400 border-4 border-white shadow"></span>
+                        <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm opacity-80">
+                            <span class="text-xs font-extrabold text-stone-500 uppercase">18th - 19th Century</span>
+                            <h3 class="text-lg font-bold text-stone-800">6. 工業革命與美國/法國大革命 (Industrial & Political Revolutions)</h3>
+                            <p class="text-xs text-stone-500 mt-1">科學與啟蒙思想實踐，歐洲全面邁入近代現代化社會。<br><span class="text-xs text-stone-500">Scientific and Enlightenment ideas put to practice, leading to modern society.</span></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= SECTION 3: COMPARISON TOOLS ================= -->
+        <section id="section-compare" class="hidden space-y-6">
+            <div class="bg-stone-900 text-white rounded-2xl p-6 shadow-xl border border-amber-600/30">
+                <h2 class="text-2xl font-bold text-amber-300">重點專題雙語對比 (Comparative Matrix)</h2>
+                <p class="text-stone-300 text-sm mt-1">快速對比中古 vs 文藝復興、專制主義 vs 啟蒙思想、科學革命 vs 啟蒙運動</p>
+            </div>
+
+            <!-- Comparison Table 1: Thought & Art -->
+            <div class="glass-panel p-6 rounded-2xl shadow-sm border border-stone-200">
+                <h3 class="text-lg font-bold text-stone-900 mb-3"><i class="fa-solid fa-code-compare text-amber-600 mr-2"></i> 1. 思想與藝術：中古時代 vs 文藝復興 (Thought & Art)</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left border-collapse">
+                        <thead>
+                            <tr class="bg-stone-100 text-stone-800 border-b border-stone-300">
+                                <th class="p-3">範疇 Feature</th>
+                                <th class="p-3 bg-red-50 text-red-900 w-1/2">中古時代 Medieval Times</th>
+                                <th class="p-3 bg-emerald-50 text-emerald-900 w-1/2">文藝復興 Renaissance</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-stone-200 text-xs sm:text-sm">
+                            <tr>
+                                <td class="p-3 font-bold">核心觀念 Focus</td>
+                                <td class="p-3 bg-red-50/30">以神為本 (God-centred)</td>
+                                <td class="p-3 bg-emerald-50/30">以人為本 / 人文主義 (Human-centred)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold">人生態度 Life View</td>
+                                <td class="p-3 bg-red-50/30">視「苦行」(suffering) 為理想</td>
+                                <td class="p-3 bg-emerald-50/30">肯定人性價值，追求世俗幸福 (Secular life)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold">宇宙觀 Cosmology</td>
+                                <td class="p-3 bg-red-50/30">地心說 (Geocentrism) - 地球為中心</td>
+                                <td class="p-3 bg-emerald-50/30">日心說 (Heliocentrism) - 太陽為中心</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Comparison Table 2: Absolutism vs Enlightenment -->
+            <div class="glass-panel p-6 rounded-2xl shadow-sm border border-stone-200">
+                <h3 class="text-lg font-bold text-stone-900 mb-3"><i class="fa-solid fa-scale-balanced text-amber-600 mr-2"></i> 2. 政治理念：專制主義 vs 啟蒙思想 (Absolutism vs Enlightenment)</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left border-collapse">
+                        <thead>
+                            <tr class="bg-stone-100 text-stone-800 border-b border-stone-300">
+                                <th class="p-3">範疇 Feature</th>
+                                <th class="p-3 bg-red-50 text-red-900 w-1/2">專制主義 Absolutism</th>
+                                <th class="p-3 bg-emerald-50 text-emerald-900 w-1/2">啟蒙思想 Enlightenment Thinkers</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-stone-200 text-xs sm:text-sm">
+                            <tr>
+                                <td class="p-3 font-bold">權力來源 Source of Power</td>
+                                <td class="p-3 bg-red-50/30">君權神授 (Divine Right of Kings) - 來自上帝</td>
+                                <td class="p-3 bg-emerald-50/30">主權在民 / 社會契約 (Popular Sovereignty / Social Contract)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold">權力架構 Structure</td>
+                                <td class="p-3 bg-red-50/30">君主握有無限專制權力 (Unlimited absolute power)</td>
+                                <td class="p-3 bg-emerald-50/30">三權分立 (Separation of Powers) 與憲法限制</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold">人民權利 People's Rights</td>
+                                <td class="p-3 bg-red-50/30">必須無條件服從 (Must obey)</td>
+                                <td class="p-3 bg-emerald-50/30">享有天賦人權 (Natural Rights) 如生命、自由、財產</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= SECTION 4: FLASHCARDS ================= -->
+        <section id="section-cards" class="hidden space-y-6">
+            <div class="bg-stone-900 text-white rounded-2xl p-6 shadow-xl border border-amber-600/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-amber-300">歷史關鍵詞彙卡 (23 Key Flashcards)</h2>
+                    <p class="text-stone-300 text-sm mt-1">點擊卡片翻面查看中文解釋與雙語定義！ (Click card to flip)</p>
+                </div>
+                <div class="text-sm font-semibold bg-stone-800 px-3 py-1.5 rounded-lg text-amber-400">
+                    進度 Progress: <span id="card-index">1</span> / <span id="card-total">23</span>
+                </div>
+            </div>
+
+            <!-- Flashcard Display -->
+            <div class="max-w-xl mx-auto">
+                <div id="flashcard" onclick="flipCard()" class="flip-card w-full h-80 cursor-pointer">
+                    <div class="flip-card-inner relative w-full h-full shadow-lg rounded-2xl">
+                        <!-- Front -->
+                        <div class="flip-card-front absolute inset-0 bg-white border-2 border-amber-500 rounded-2xl p-8 flex flex-col items-center justify-center text-center">
+                            <span class="text-xs font-bold px-3 py-1 bg-amber-100 text-amber-800 rounded-full mb-3" id="card-category">Category</span>
+                            <h3 class="text-2xl font-extrabold text-stone-900" id="card-term">Term</h3>
+                            <p class="text-xs text-stone-400 mt-4"><i class="fa-solid fa-rotate mr-1"></i> 點擊卡片查看解釋 Click to view definition</p>
+                        </div>
+                        <!-- Back -->
+                        <div class="flip-card-back absolute inset-0 bg-stone-900 text-white rounded-2xl p-8 flex flex-col items-center justify-center text-center border-2 border-amber-400">
+                            <h4 class="text-xl font-bold text-amber-300 mb-2" id="card-translation">Translation</h4>
+                            <p class="text-sm text-stone-200 leading-relaxed whitespace-pre-line" id="card-desc">Description</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="flex items-center justify-between mt-6">
+                    <button onclick="prevCard()" class="px-5 py-2.5 bg-stone-200 hover:bg-stone-300 text-stone-800 font-semibold rounded-xl text-sm transition"><i class="fa-solid fa-arrow-left mr-2"></i> 上一張 Previous</button>
+                    <button onclick="nextCard()" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-xl text-sm shadow transition">下一張 Next <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= SECTION 5: QUIZ ================= -->
+        <section id="section-quiz" class="hidden space-y-6">
+            <div class="bg-stone-900 text-white rounded-2xl p-6 shadow-xl border border-amber-600/30">
+                <h2 class="text-2xl font-bold text-amber-300">雙語互動測驗 (Interactive Quiz)</h2>
+                <p class="text-stone-300 text-sm mt-1">全面測試你對文藝復興、宗教改革、科學革命與啟蒙運動的掌握！</p>
+            </div>
+
+            <div class="max-w-2xl mx-auto glass-panel p-6 sm:p-8 rounded-2xl shadow-md border border-stone-200">
+                <div id="quiz-container">
+                    <div class="flex justify-between items-center mb-4 pb-2 border-b">
+                        <span class="text-xs font-bold text-amber-700 uppercase" id="quiz-progress">Question 1 of 10</span>
+                        <span class="text-xs font-semibold px-2 py-1 bg-amber-100 text-amber-800 rounded" id="quiz-score">Score: 0</span>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-stone-900 mb-4" id="quiz-question">Question text here</h3>
+
+                    <div class="space-y-3" id="quiz-options">
+                        <!-- Options generated dynamically -->
+                    </div>
+
+                    <div id="quiz-feedback" class="mt-4 p-3 rounded-lg text-sm hidden"></div>
+
+                    <div class="mt-6 flex justify-end">
+                        <button id="next-quiz-btn" onclick="nextQuizQuestion()" class="hidden px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-xl text-sm transition">下一題 Next <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                    </div>
+                </div>
+
+                <div id="quiz-result" class="hidden text-center py-8 space-y-4">
+                    <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-2xl font-bold"><i class="fa-solid fa-trophy"></i></div>
+                    <h3 class="text-2xl font-bold text-stone-900">測驗完成！ Quiz Completed!</h3>
+                    <p class="text-stone-600 text-sm">你的得分是 Your score is: <span id="final-score" class="font-extrabold text-amber-600 text-xl">0</span> / 10</p>
+                    <button onclick="restartQuiz()" class="px-6 py-2.5 bg-amber-600 text-white rounded-xl font-bold hover:bg-amber-700 transition">重新測試 Try Again</button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= SECTION 6: AI TUTOR ================= -->
+        <section id="section-ai-tutor" class="hidden space-y-6">
+            <div class="bg-gradient-to-r from-stone-900 via-stone-800 to-amber-950 text-white rounded-2xl p-6 shadow-xl border border-amber-500/40">
+                <div class="flex items-center space-x-3">
+                    <div class="p-3 bg-amber-500/20 border border-amber-400/40 rounded-xl text-amber-400 text-xl"><i class="fa-solid fa-robot"></i></div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-amber-300">AI 歷史雙語導師 (Gemini AI Assistant)</h2>
+                        <p class="text-stone-300 text-sm">用中文或英文提問關於 Topic 5 (Textbook pp. 6-39) 的任何問題！</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Prompt Shortcuts -->
+                <div class="lg:col-span-1 space-y-3">
+                    <div class="glass-panel p-4 rounded-xl border border-stone-200">
+                        <h3 class="font-bold text-stone-900 text-sm mb-2"><i class="fa-solid fa-bolt text-amber-500 mr-1"></i> 快速提問模板 Prompts</h3>
+                        <div class="space-y-2 text-xs">
+                            <button onclick="sendQuickPrompt('請用中英雙語簡短解釋科學革命對啟蒙運動的影響。')" class="w-full text-left p-2 bg-white hover:bg-amber-50 rounded-lg border border-stone-200 transition text-stone-700">📌 科學革命如何影響啟蒙運動？</button>
+                            <button onclick="sendQuickPrompt('Compare Divine Right of Kings with Natural Rights in both English and Chinese.')" class="w-full text-left p-2 bg-white hover:bg-amber-50 rounded-lg border border-stone-200 transition text-stone-700">📌 君權神授 vs 天賦人權對比</button>
+                            <button onclick="sendQuickPrompt('Explain Locke, Montesquieu, and Rousseau\'s core political ideas in English and Chinese.')" class="w-full text-left p-2 bg-white hover:bg-amber-50 rounded-lg border border-stone-200 transition text-stone-700">📌 洛克、孟德斯鳩與盧梭思想總結</button>
+                            <button onclick="sendQuickPrompt('請幫我針對科學革命與啟蒙運動出 3 條 DSE 風格的中英對照短問答題（含答案）。')" class="w-full text-left p-2 bg-white hover:bg-amber-50 rounded-lg border border-stone-200 transition text-stone-700">📝 生成 3 條雙語試題 (Practice Questions)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Box -->
+                <div class="lg:col-span-2 glass-panel rounded-2xl border border-stone-200 flex flex-col h-[500px] overflow-hidden">
+                    <!-- Chat History -->
+                    <div id="chat-messages" class="flex-grow p-4 overflow-y-auto space-y-4 text-sm">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-amber-600 text-white flex items-center justify-center font-bold text-xs shrink-0"><i class="fa-solid fa-robot"></i></div>
+                            <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-stone-200 shadow-sm text-stone-800">
+                                你好！我是你的 Topic 5 歷史 AI 導師。歡迎隨時用中文或英文向我提問關於文藝復興、宗教改革、科學革命或啟蒙運動的問題！<br>
+                                <span class="text-xs text-stone-500">Hello! I am your AI Tutor for Topic 5. Feel free to ask questions in English or Chinese!</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Form -->
+                    <div class="p-3 bg-white border-t border-stone-200 flex items-center space-x-2">
+                        <input id="chat-input" type="text" placeholder="輸入問題... Ask a question (e.g. What is social contract?)" class="flex-grow px-4 py-2 bg-stone-100 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm">
+                        <button onclick="handleSendChat()" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-bold text-sm transition"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-400 py-6 text-center text-xs border-t border-stone-800">
+        <p>Topic 5: The Rise of Modern Europe Interactive Study Hub</p>
+        <p class="mt-1 text-stone-500">Chapter 1: Renaissance & Reformation | Chapter 2: Scientific Revolution & Enlightenment (Textbook pp. 6-39)</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Tab Navigation
+        function switchTab(tabId) {
+            ['notes', 'timeline', 'compare', 'cards', 'quiz', 'ai-tutor'].forEach(id => {
+                document.getElementById(`section-${id}`).classList.add('hidden');
+                const navBtn = document.getElementById(`nav-${id}`);
+                if (navBtn) {
+                    navBtn.classList.remove('bg-stone-800', 'text-amber-400');
+                    navBtn.classList.add('text-stone-300');
+                }
+            });
+
+            document.getElementById(`section-${tabId}`).classList.remove('hidden');
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.classList.add('bg-stone-800', 'text-amber-400');
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Accordion Management
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(`icon-${id}`);
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        function toggleAllAccordions(open) {
+            const accordions = ['acc-ren-1', 'acc-ren-2', 'acc-ren-3', 'acc-ref-1', 'acc-ref-2', 'acc-sci-1', 'acc-enl-1'];
+            accordions.forEach(id => {
+                const content = document.getElementById(id);
+                const icon = document.getElementById(`icon-${id}`);
+                if (content) {
+                    if (open) {
+                        content.classList.remove('hidden');
+                        if (icon) icon.classList.add('rotate-180');
+                    } else {
+                        content.classList.add('hidden');
+                        if (icon) icon.classList.remove('rotate-180');
+                    }
+                }
+            });
+        }
+
+        function filterNotes(type) {
+            document.querySelectorAll('.note-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-600', 'text-white');
+                btn.classList.add('bg-white', 'text-stone-700');
+            });
+            document.getElementById(`filter-${type}`).classList.add('bg-amber-600', 'text-white');
+
+            const blocks = document.querySelectorAll('.note-block');
+            blocks.forEach(block => {
+                if (type === 'all' || block.classList.contains(type)) {
+                    block.classList.remove('hidden');
+                } else {
+                    block.classList.add('hidden');
+                }
+            });
+        }
+
+        // Flashcard Data & Logic (Exact 23 Key Flashcards Requested)
+        const flashcards = [
+            { term: "Renaissance", translation: "文藝復興", category: "Ch.1 Renaissance", desc: "A cultural and intellectual movement in 14th-17th century Europe meaning 'revival' or 'rebirth'.\n(14-17世紀歐洲字面意為「復興」或「重生」的文化及學術運動。)" },
+            { term: "Humanism", translation: "人文主義", category: "Ch.1 Renaissance", desc: "Core idea that placed humans at the centre, emphasizing human nature, human values, and rational capability.\n(將「人」置於關注中心，強調人性、人類價值及理性能力的的核心思想。)" },
+            { term: "Crusades", translation: "十字軍東征", category: "Ch.1 Background", desc: "11th-13th century military expeditions that promoted knowledge exchange between Europe and Asia.\n(11至13世紀促進歐亞知識交流與古典文化興趣的軍事遠征。)" },
+            { term: "secular", translation: "世俗的", category: "Ch.1 Core Concept", desc: "Refers to worldly life, human experiences, and non-religious pursuits.\n(指世俗生活、人間體驗及非宗教性的追求。)" },
+            { term: "Gothic style", translation: "哥德式風格", category: "Ch.1 Architecture", desc: "Medieval architecture featuring tall spires, pointed arches, flying buttresses, and stained-glass windows.\n(中古建築風格，特色為高尖塔、尖形拱門、飛扶壁及彩色玻璃窗。)" },
+            { term: "heliocentrism", translation: "日心說", category: "Ch.1 Science", desc: "Astronomical theory proposed by Copernicus that the Sun is the centre of the universe.\n(哥白尼提出的天文學理論，主張太陽才是宇宙的中心。)" },
+            { term: "geocentrism", translation: "地心說", category: "Ch.1 Science", desc: "Traditional theory supported by the Church that the Earth is the stationary centre of the universe.\n(教會支持的傳統理論，認為地球是宇宙靜止的中心。)" },
+            { term: "New Testament", translation: "新約聖經", category: "Ch.1 Reformation", desc: "The second part of the Christian Bible; Erasmus published its Greek version exposing Latin translation errors.\n(基督教聖經第二部分；埃拉斯默斯出版其希臘文版揭露拉丁譯本錯誤。)" },
+            { term: "indulgences", translation: "贖罪券", category: "Ch.1 Reformation", desc: "Certificates sold by the Catholic Church claiming to reduce souls' punishment in purgatory.\n(天主教會售賣宣稱可減免靈魂在煉獄中受苦時間的證書。)" },
+            { term: "Martin Luther", translation: "馬丁路德", category: "Ch.1 Reformation", desc: "German monk who initiated the Reformation in 1517 by advocating 'Salvation by faith alone'.\n(1517年提倡「因信稱義」拉開宗教改革序幕的德意志修道士。)" },
+            { term: "Ninety-Five Theses", translation: "《九十五點論證》", category: "Ch.1 Reformation", desc: "Document posted by Martin Luther in 1517 challenging indulgence sales and papal authority.\n(1517年馬丁路德張貼質疑贖罪券販售與教宗權威的文告。)" },
+            { term: "Protestantism", translation: "新教", category: "Ch.1 Reformation", desc: "Christian branches that broke away from the Roman Catholic Church, including Lutheranism and Anglicanism.\n(脫離羅馬天主教會的基督教新教派總稱，如路德宗、聖公宗。)" },
+            { term: "Counter-Reformation", translation: "反宗教改革", category: "Ch.1 Reformation", desc: "Internal reform movement by the Catholic Church to regain followers and eliminate corruption.\n(天主教會內部為挽回信徒與消除腐敗而展開的改革運動。)" },
+            { term: "Opening of New Sea Routes", translation: "新航路的開闢", category: "Ch.2 Sci. Rev.", desc: "European naval explorations in 15th-16th centuries that proved Earth is round and encouraged scientific exploration.\n(15-16世紀歐洲海上探索，證實地球是圓的並鼓舞科學探索。)" },
+            { term: "printing press", translation: "印刷術", category: "Ch.2 Sci. Rev.", desc: "Technology that promoted the circulation of books and facilitated academic exchange among scholars.\n(促進書籍流通並推動學者間學術交流的關鍵技術。)" },
+            { term: "Newton", translation: "牛頓 (1642-1727)", category: "Ch.2 Sci. Rev.", desc: "Scientist during the Scientific Revolution who suggested the 'law of universal gravitation'.\n(科學革命時期提出「萬有引力定律」的著名科學家。)" },
+            { term: "natural rights", translation: "天賦人權", category: "Ch.2 Enlightenment", desc: "Rights that everyone is born with and enjoys, such as life, liberty, and property.\n(人人人生而享有且不可剝奪的權利，如生命、自由與財產。)" },
+            { term: "Divine Right of Kings", translation: "君權神授", category: "Ch.2 Background", desc: "Doctrine claiming that absolute kings' authority comes directly from God and people must obey.\n(主張專制國王權力直接來自上帝、人民必須服從的學說。)" },
+            { term: "absolutism", translation: "專制主義", category: "Ch.2 Background", desc: "Political system in 16th-17th century Europe where absolute monarchs held unlimited power.\n(16-17世紀歐洲專制君主握有無限制權力的政治體制。)" },
+            { term: "laws of nature", translation: "自然法則", category: "Ch.2 Sci. Rev.", desc: "Principles governing nature discovered by scientific methods, which inspired Enlightenment political ideas.\n(經科學方法發現支配自然的原理，啟蒙了啟蒙運動的政治思想。)" },
+            { term: "social contract", translation: "社會契約", category: "Ch.2 Enlightenment", desc: "Idea that government is established by agreement between people and rulers to protect rights.\n(主張政府由人民與統治者訂立契約建立以保障權力的思想。)" },
+            { term: "separation of powers", translation: "三權分立", category: "Ch.2 Enlightenment", desc: "Montesquieu's theory dividing government into legislative, executive, and judicial powers to prevent abuse.\n(孟德斯鳩提出將權力分為立法、行政與司法以防止權力濫用的理論。)" },
+            { term: "constitutions", translation: "憲法", category: "Ch.2 Enlightenment", desc: "Fundamental legal documents created by modern nations to implement separation of powers and protect natural rights.\n(現代國家為實行三權分立與保障天賦人權所制定的根本法律文件。)" }
+        ];
+
+        let currentCardIndex = 0;
+
+        function updateCardDisplay() {
+            const card = flashcards[currentCardIndex];
+            document.getElementById('card-term').innerText = card.term;
+            document.getElementById('card-translation').innerText = card.translation;
+            document.getElementById('card-category').innerText = card.category;
+            document.getElementById('card-desc').innerText = card.desc;
+            document.getElementById('card-index').innerText = currentCardIndex + 1;
+            document.getElementById('card-total').innerText = flashcards.length;
+
+            document.getElementById('flashcard').classList.remove('flipped');
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+        }
+
+        function nextCard() {
+            currentCardIndex = (currentCardIndex + 1) % flashcards.length;
+            updateCardDisplay();
+        }
+
+        function prevCard() {
+            currentCardIndex = (currentCardIndex - 1 + flashcards.length) % flashcards.length;
+            updateCardDisplay();
+        }
+
+        // Quiz Data
+        const quizData = [
+            {
+                q: "1. 17世紀科學革命 (Scientific Revolution) 中，牛頓 (Newton) 提出了什麼重要科學定律？ Which law did Newton suggest during the Scientific Revolution?",
+                options: [
+                    "日心說 Law of Heliocentrism",
+                    "萬有引力定律 Law of universal gravitation",
+                    "社會契約論 Theory of Social Contract",
+                    "三權分立 Separation of powers"
+                ],
+                answer: 1,
+                explanation: "牛頓 (Newton) 提出了「萬有引力定律」(law of universal gravitation)。"
+            },
+            {
+                q: "2. 啟蒙思想家洛克 (Locke) 主張人人人生而享有哪些權利？ Which rights did Locke claim everyone is born with?",
+                options: [
+                    "君權神授 Divine Right of Kings",
+                    "天賦人權（生命、自由、財產） Natural rights (life, liberty, property)",
+                    "無限制專制權力 Unlimited absolute power",
+                    "教會解釋聖經權威 Authority to interpret Bible"
+                ],
+                answer: 1,
+                explanation: "洛克 (Locke) 主張「天賦人權」(natural rights)，包含生命、自由與財產權。"
+            },
+            {
+                q: "3. 孟德斯鳩 (Montesquieu) 提出的「三權分立」(Separation of powers) 包含哪三項權力？ What 3 powers are included in Montesquieu's Separation of Powers?",
+                options: [
+                    "君權、神權、教宗權",
+                    "立法、行政、司法 (legislative, executive, judicial)",
+                    "觀察、假設、實驗",
+                    "路德宗、歸正宗、聖公宗"
+                ],
+                answer: 1,
+                explanation: "孟德斯鳩主張將權力分為立法、行政與司法 (legislative, executive, judicial) 以互相制衡。"
+            },
+            {
+                q: "4. 專制君主用來宣稱其權力直接來自上帝且人民必須服從的理論是什麼？ What doctrine claimed monarchs' authority came directly from God?",
+                options: [
+                    "天賦人權 Natural rights",
+                    "君權神授 Divine Right of Kings",
+                    "主權在民 Popular sovereignty",
+                    "自然法則 Laws of nature"
+                ],
+                answer: 1,
+                explanation: "專制國王支持「君權神授」(Divine Right of Kings)，宣稱權力來自上帝。"
+            },
+            {
+                q: "5. 新航路的開闢 (Opening of New Sea Routes) 環球航行證實了什麼，從而鼓舞了科學探索？ What did circumnavigation prove?",
+                options: [
+                    "地球是平的 Earth is flat",
+                    "地球是圓的 Earth is round",
+                    "太陽繞地球旋轉 Sun revolves around Earth",
+                    "上帝決定一切 God determines all"
+                ],
+                answer: 1,
+                explanation: "環球航行證實了「地球是圓的」(Earth is round)，推翻舊理論並鼓舞了科學探索。"
+            },
+            {
+                q: "6. 馬丁路德於1517年張貼的《九十五點論證》(Ninety-Five Theses) 主要反對教會的什麼行為？ What did Luther oppose in 1517?",
+                options: [
+                    "販賣贖罪券 Sale of indulgences",
+                    "翻譯希臘文聖經 Translation of Greek Bible",
+                    "實行三權分立 Implementation of separation of powers",
+                    "設立皇家學會 Setting up Royal Society"
+                ],
+                answer: 0,
+                explanation: "馬丁路德張貼《九十五點論證》直接抗議天主教會大肆販賣贖罪券 (indulgences)。"
+            },
+            {
+                q: "7. 「科學方法」(Scientific method) 要求的步驟不包括下列哪一項？ Which step is NOT part of the scientific method?",
+                options: [
+                    "觀察 Observation",
+                    "盲目服從權威 Blind obedience to authority",
+                    "假設與實驗 Hypothesis & Experimentation",
+                    "理性分析 Rational analysis"
+                ],
+                answer: 1,
+                explanation: "科學方法強調懷疑 (scepticism)、觀察、假設、實驗與理性分析，拒絕盲目相信權威。"
+            },
+            {
+                q: "8. 提倡「主權在民」(Popular Sovereignty) 並認為政府應依據大眾意願治理的啟蒙思想家是誰？ Who advocated Popular Sovereignty?",
+                options: [
+                    "盧梭 Rousseau",
+                    "牛頓 Newton",
+                    "伽利略 Galileo",
+                    "亨利八世 King Henry VIII"
+                ],
+                answer: 0,
+                explanation: "盧梭 (Rousseau) 主張主權在民，政府應依據大眾意願 (general will) 治理。"
+            },
+            {
+                q: "9. 科學革命中發現的「自然法則」(Laws of nature) 直接引發了17世紀末的哪一場運動？ What did laws of nature spark in the late 17th century?",
+                options: [
+                    "十字軍東征 Crusades",
+                    "啟蒙運動 The Enlightenment",
+                    "黑死病爆發 Outbreak of Black Death",
+                    "哥德式建築興起 Rise of Gothic style"
+                ],
+                answer: 1,
+                explanation: "科學革命的「自然法則」啟發思想家將理性原則應用於政治與社會，引發了啟蒙運動。"
+            },
+            {
+                q: "10. 現代國家制定「憲法」(Constitutions) 的主要目的是什麼？ What is the main purpose of Constitutions in modern nations?",
+                options: [
+                    "加強君權神授 Strengthen Divine Right of Kings",
+                    "實行三權分立與保障天賦人權 Implement separation of powers & safeguard natural rights",
+                    "推廣天主教教義 Promote Catholic doctrines",
+                    "恢復封建莊園制度 Restore feudal manors"
+                ],
+                answer: 1,
+                explanation: "現代國家制定憲法，實行三權分立並保障人民的天賦人權。"
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let score = 0;
+
+        function loadQuizQuestion() {
+            const item = quizData[currentQuizIndex];
+            document.getElementById('quiz-progress').innerText = `Question ${currentQuizIndex + 1} of ${quizData.length}`;
+            document.getElementById('quiz-question').innerText = item.q;
+            document.getElementById('quiz-feedback').classList.add('hidden');
+            document.getElementById('next-quiz-btn').classList.add('hidden');
+
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+
+            item.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-3 rounded-xl border border-stone-200 bg-white hover:bg-amber-50 transition text-sm font-medium text-stone-800 flex items-center justify-between";
+                btn.innerHTML = `<span>${opt}</span><i class="fa-regular fa-circle text-stone-300"></i>`;
+                btn.onclick = () => selectQuizAnswer(idx, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectQuizAnswer(selectedIndex, btnElement) {
+            const item = quizData[currentQuizIndex];
+            const feedback = document.getElementById('quiz-feedback');
+            const allButtons = document.getElementById('quiz-options').children;
+
+            for (let b of allButtons) {
+                b.disabled = true;
+                b.classList.add('opacity-70');
+            }
+
+            if (selectedIndex === item.answer) {
+                score++;
+                document.getElementById('quiz-score').innerText = `Score: ${score}`;
+                btnElement.classList.remove('bg-white', 'border-stone-200');
+                btnElement.classList.add('bg-green-100', 'border-green-500', 'text-green-900');
+                feedback.className = "mt-4 p-3 rounded-lg text-sm bg-green-50 text-green-800 border border-green-200 block";
+                feedback.innerHTML = `<strong><i class="fa-solid fa-circle-check"></i> 正確 Correct!</strong> ${item.explanation}`;
+            } else {
+                btnElement.classList.remove('bg-white', 'border-stone-200');
+                btnElement.classList.add('bg-red-100', 'border-red-500', 'text-red-900');
+                allButtons[item.answer].classList.add('bg-green-100', 'border-green-500');
+                feedback.className = "mt-4 p-3 rounded-lg text-sm bg-red-50 text-red-800 border border-red-200 block";
+                feedback.innerHTML = `<strong><i class="fa-solid fa-circle-xmark"></i> 錯誤 Incorrect!</strong> ${item.explanation}`;
+            }
+
+            document.getElementById('next-quiz-btn').classList.remove('hidden');
+        }
+
+        function nextQuizQuestion() {
+            currentQuizIndex++;
+            if (currentQuizIndex < quizData.length) {
+                loadQuizQuestion();
+            } else {
+                document.getElementById('quiz-container').classList.add('hidden');
+                document.getElementById('quiz-result').classList.remove('hidden');
+                document.getElementById('final-score').innerText = score;
+            }
+        }
+
+        function restartQuiz() {
+            currentQuizIndex = 0;
+            score = 0;
+            document.getElementById('quiz-score').innerText = `Score: 0`;
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            loadQuizQuestion();
+        }
+
+        // Gemini AI Chatbot Logic
+        async function handleSendChat() {
+            const input = document.getElementById('chat-input');
+            const prompt = input.value.trim();
+            if (!prompt) return;
+
+            addChatMessage('user', prompt);
+            input.value = '';
+
+            const loadingId = addChatMessage('bot', '<i class="fa-solid fa-spinner fa-spin"></i> AI 導師思考中... Thinking...');
+
+            try {
+                const systemPrompt = "你是一位精通中學歷史科（Topic 5: 文藝復興、宗教改革、科學革命與啟蒙運動 Renaissance, Reformation, Scientific Revolution & Enlightenment）的專業雙語導師。請根據教科書第6-39頁的筆記內容，以中英雙語（Bilingual Chinese and English）解答學生的問題，提供清晰易懂的歷史解釋。";
+                const apiKey = ""; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+
+                const data = await response.json();
+                const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "抱歉，目前無法取得 AI 回應。 Sorry, unable to get response.";
+
+                updateChatMessage(loadingId, reply.replace(/\n/g, '<br>'));
+            } catch (err) {
+                updateChatMessage(loadingId, "⚠️ 連線發生錯誤，請稍後再試。 Connection error, please try again later.");
+            }
+        }
+
+        function sendQuickPrompt(text) {
+            document.getElementById('chat-input').value = text;
+            handleSendChat();
+        }
+
+        function addChatMessage(role, text) {
+            const container = document.getElementById('chat-messages');
+            const msgDiv = document.createElement('div');
+            const id = 'msg-' + Date.now();
+            msgDiv.id = id;
+            msgDiv.className = `flex items-start space-x-3 ${role === 'user' ? 'justify-end' : ''}`;
+
+            if (role === 'user') {
+                msgDiv.innerHTML = `
+                    <div class="bg-amber-600 text-white p-3 rounded-2xl rounded-tr-none shadow-sm max-w-[80%]">${text}</div>
+                    <div class="w-8 h-8 rounded-full bg-stone-700 text-white flex items-center justify-center font-bold text-xs shrink-0"><i class="fa-solid fa-user"></i></div>
+                `;
+            } else {
+                msgDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-amber-600 text-white flex items-center justify-center font-bold text-xs shrink-0"><i class="fa-solid fa-robot"></i></div>
+                    <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-stone-200 shadow-sm text-stone-800 max-w-[80%]">${text}</div>
+                `;
+            }
+
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+            return id;
+        }
+
+        function updateChatMessage(id, newHtml) {
+            const msgDiv = document.getElementById(id);
+            if (msgDiv) {
+                const textContainer = msgDiv.querySelector('.bg-white');
+                if (textContainer) textContainer.innerHTML = newHtml;
+            }
+        }
+
+        // Initialize App
+        window.onload = function() {
+            updateCardDisplay();
+            loadQuizQuestion();
+        }
+    </script>
+</body>
+</html>
